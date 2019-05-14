@@ -109,6 +109,18 @@ func typ(in interface{}) (t string) {
 	return ""
 }
 
+func pointer(in interface{}) string {
+	switch v := in.(type) {
+	case *descriptor.FieldDescriptorProto:
+		switch v.GetType() {
+		case descriptor.FieldDescriptorProto_TYPE_MESSAGE:
+			return "*"
+		}
+	}
+
+	return ""
+}
+
 func other(fields []*descriptor.FieldDescriptorProto) interface{} {
 	results := make([]*descriptor.FieldDescriptorProto, 0, len(fields))
 
@@ -161,13 +173,14 @@ func id(typeName string, messages []*descriptor.DescriptorProto) string {
 
 func newTemplate(content string) (*template.Template, error) {
 	fn := map[string]interface{}{
-		"base":  base,
-		"lower": lower,
-		"camel": camel,
-		"type":  typ,
-		"other": other,
-		"id":    id,
-		"name":  name,
+		"base":    base,
+		"lower":   lower,
+		"camel":   camel,
+		"type":    typ,
+		"other":   other,
+		"id":      id,
+		"name":    name,
+		"pointer": pointer,
 	}
 
 	return template.New("page").Funcs(fn).Parse(content)

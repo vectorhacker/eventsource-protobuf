@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/altairsix/eventsource-protobuf/cmd/protoc-gen-eventsource/generate"
 	"github.com/gogo/protobuf/proto"
-	"github.com/gogo/protobuf/protoc-gen-gogo/plugin"
+	plugin_go "github.com/gogo/protobuf/protoc-gen-gogo/plugin"
+	"github.com/vectorhacker/eventsource-protobuf/cmd/protoc-gen-eventsource/generate"
 )
 
 func check(err error) {

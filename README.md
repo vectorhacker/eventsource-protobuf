@@ -5,7 +5,7 @@ protoc plugin to generate eventsource.Serializers for github.com/altairsix/event
 ## Installation
 
 ```
-go get github.com/altairsix/eventsource-protobuf/...
+go get github.com/vectorhacker/eventsource-protobuf/...
 ```
 
 ## Usage

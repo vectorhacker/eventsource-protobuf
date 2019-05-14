@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/gogo/protobuf/protoc-gen-gogo/descriptor"
-	"github.com/gogo/protobuf/protoc-gen-gogo/plugin"
+	plugin_go "github.com/gogo/protobuf/protoc-gen-gogo/plugin"
 	"github.com/pkg/errors"
 )
 
@@ -194,11 +194,11 @@ func (b *Builder) nextVersion() int32 {
 }
 
 {{ range .Events }}
-func (b *Builder) {{ .Name | camel }}({{ range .Field | other }}{{ .Name | camel | lower }} {{ . | type }}, {{ end }}) {
+func (b *Builder) {{ .Name | camel }}({{ range .Field | other }}{{ .Name | camel | lower }} {{ . | pointer }}{{ . | type }}, {{ end }}) {
 	event := &{{ .Name | camel }}{
 		{{ id .Name $Events }}:      b.id,
 		Version: b.nextVersion(),
-		At:      time.Now().Unix(),
+		At:      time.Now().UnixNano(),
 {{ range .Field | other }}	{{ . | name }}: {{ . | name | lower }},
 {{ end }}
 	}
